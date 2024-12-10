@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Header/Header";
 import LowerHeader from "../LowerHeader/LowerHeader";
 import Story from "./Story";
+import Post from "./Post";
 
 
 function Homepage(){
@@ -11,6 +12,7 @@ function Homepage(){
     <Header/>
     <LowerHeader/>
     <Story/> 
+    <Post/>
 
     </div>
     </>
