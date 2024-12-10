@@ -10,7 +10,7 @@ function AddPost() {
         <div className="w-full max-w-md bg-white p-8  rounded-md shadow-lg">
           <h3 className="font-semibold text-2xl text-center">Add Post</h3>
           <form action="" className="space-y-4">
-            <div>
+            <div> 
               <label
                 htmlFor="post-title"
                 className="block text-sm  font-medium text-gray-700"

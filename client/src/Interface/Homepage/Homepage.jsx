@@ -10,7 +10,7 @@ function Homepage(){
     <div className="bg-slate-400 h-auto w-100">
     <Header/>
     <LowerHeader/>
-    <Story/>
+    <Story/> 
 
     </div>
     </>

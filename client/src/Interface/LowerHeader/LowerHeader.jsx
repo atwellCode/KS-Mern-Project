@@ -1,11 +1,15 @@
 import React from "react";
+import {useNavigate} from 'react-router-dom';
 
 function LowerHeader() {
+  const navigate = useNavigate();
   return (
     <header className="fixed bottom-0 left-0 w-full z-50 shadow-t-md">
       <nav className="flex justify-around items-center h-16 bg-gradient-to-r  from-gray-900 to-slate-700 text-white font-semibold">
-        {/* Home */}
-        <div className="flex flex-col items-center gap-1">
+ 
+        <div className="flex flex-col items-center gap-1 cursor-pointer"
+        onClick={()=>{navigate('/')}}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -44,7 +48,9 @@ function LowerHeader() {
         </div>
 
         {/* Add Post */}
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center gap-1 cursor-pointer"
+        onClick={()=>{navigate('/add-post')}}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
