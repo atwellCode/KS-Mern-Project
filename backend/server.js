@@ -1,6 +1,7 @@
 require('dotenv').config(); // Load environment variables at the top
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
 
 const connectMongoDB = require("./db/connectDB");
 const authRoutes = require('./routes/auth.routes');
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3009;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
   
 // Database Connection
 connectMongoDB();
