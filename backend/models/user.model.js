@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:"",
     },
+    // bios
     bios:{
         type:String,
         default:""

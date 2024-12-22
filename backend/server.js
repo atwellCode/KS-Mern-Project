@@ -2,6 +2,7 @@ require("dotenv").config(); // Load environment variables at the top
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const cloudinary = require("cloudinary").v2;
 
 const connectMongoDB = require("./db/connectDB");
 const authRoutes = require("./routes/auth.routes");
@@ -15,6 +16,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_NAME,
+  api_secret: process.env.CLOUDINARY_API_KEY,
+  secure: true,
+});
 
 // Routes
 app.use("/api/auth", authRoutes);
