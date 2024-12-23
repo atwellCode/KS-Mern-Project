@@ -1,28 +1,26 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "./Interface/Homepage/Homepage";
-import Login from "./Auth/log-in";
-import Signup from "./Auth/sign-up";
-import AddPost from "./Interface/AddPost/add-post";
+import HomePage from "./home/HomePage";
+import SignUpPage from "./pages/auth/signup/SignUpPage";
+import LoginPage from "./pages/auth/login/LoginPage";
+import Sidebar from "./components/common/Slidebar";
+import RightPanel from "./components/common/RightPanel";
 
-
-function App(){
-  return(
-    <>
+function App() {
+  return (
     <BrowserRouter>
-    <Routes>
-      {/* User-Interface Homepage */}
-      <Route exact path='/' element={<Homepage/>} />
-      <Route path='add-post' element={<AddPost/>} />
+      <div className="flex max-w-6xl mx-auto">
+        <Sidebar />
 
-
-      {/* User Auth */}
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/sign-up" element={<Signup/>}/>
-    </Routes>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+        <RightPanel/>
+      </div>
     </BrowserRouter>
-   
-    </>
   );
 }
 
