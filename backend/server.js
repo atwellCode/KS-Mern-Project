@@ -7,6 +7,8 @@ const cloudinary = require("cloudinary").v2;
 const connectMongoDB = require("./db/connectDB");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes")
+const postRoutes = require("./routes/post.routes.js");
+const notificationRoutes = require("./routes/notification.routes.js")
 
 const app = express();
 const PORT = process.env.PORT || 3009;
@@ -27,6 +29,8 @@ cloudinary.config({
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
+app.use("/api/notification", notificationRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on Port: ${PORT}`);
