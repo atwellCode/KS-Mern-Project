@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import XSvg from "../../../components/svgs/X";
@@ -7,6 +7,9 @@ import { MdOutlineMail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import {useMutation} from "@tanstack/react-query"
+
+import toast from "react-hot-toast"
 
 const SignUpPage = () => {
 	const [formData, setFormData] = useState({
@@ -16,16 +19,42 @@ const SignUpPage = () => {
 		password: "",
 	});
 
+	const navigate = useNavigate();
+const {mutate, isError, isPending,error } =useMutation({
+	mutationFn: async({email, username, name, password})=>{
+		try {
+			const res = await fetch("/api/auth/signup",{
+				method:"POST",
+				headers:{
+					"Content-Type":"application/json"
+				},
+				body: JSON.stringify({email,username,name,password})
+			})
+			const data = await res.json();
+			if(!res.ok) {throw new Error(data.error || "Failed to create account!!!");}
+			// if(data.error) throw new Error(data.error);
+			console.log(data);
+			return data;
+		} catch (error) {
+			console.error(error);
+			throw error
+		}
+	},
+	onSuccess:() => {
+		toast.success("Account created successfully!!!")
+		navigate("/login")
+	}
+});
 	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(formData);
+		e.preventDefault(); //page does not refresh
+		mutate(formData);
 	};
 
 	const handleInputChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const isError = false;
+
 
 	return (
 		<div className='max-w-screen-xl mx-auto flex h-screen px-10'>
@@ -67,7 +96,7 @@ const SignUpPage = () => {
 								placeholder='Full Name'
 								name='name'
 								onChange={handleInputChange}
-								value={formData.fullName}
+								value={formData.name}
 							/>
 						</label>
 					</div>
@@ -82,15 +111,16 @@ const SignUpPage = () => {
 							value={formData.password}
 						/>
 					</label>
-					<button className='btn rounded-full btn-primary text-white'>Sign up</button>
-					{isError && <p className='text-red-500'>Something went wrong</p>}
+					<button className='btn rounded-full btn-primary text-white'>
+						{isPending ? "Loading..." : "Sign Up"}
+					</button>
+					{isError && <p className='text-red-500'>{error.message}</p>}
 				</form>
 				<div className='flex flex-col lg:w-2/3 gap-2 mt-4'>
-					<p className='text-white text-lg'>Already have an account?
+					<p className='text-white text-lg'>Already have an account?</p>
 					<Link to='/login'>
-						<span className=' btn-primary text-white btn-outline w-full underline'>  Sign in</span>
+						<button className='btn rounded-full btn-primary text-white btn-outline w-full'>Sign in</button>
 					</Link>
-                    </p>
 				</div>
 			</div>
 		</div>
